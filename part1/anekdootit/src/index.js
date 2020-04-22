@@ -11,16 +11,30 @@ const anecdotes = [
 ];
 
 const App = (props) => {
+  const [points, setPoints] = useState([0, 0, 0, 0, 0, 0]);
   const [selected, setSelected] = useState(0);
 
   const handleNextAnecdote = () => {
     setSelected(Math.floor(Math.random() * 6));
   };
 
+  const handleIncreaseVotes = () => {
+    const tmp = [...points];
+
+    tmp[selected] += 1;
+
+    setPoints(tmp);
+  };
+
   return (
     <div>
-      <p> {props.anecdotes[selected]}</p>
+      <p>
+        {props.anecdotes[selected]}
+        <br />
+        has {points[selected]} votes
+      </p>
       <button onClick={handleNextAnecdote}>next anecdote</button>
+      <button onClick={handleIncreaseVotes}>vote</button>
     </div>
   );
 };
